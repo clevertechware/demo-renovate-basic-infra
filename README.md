@@ -18,6 +18,10 @@ docker compose up --detach --wait
 `initdb/01-databases.sql` crée les rôles et bases `factories` (mot de passe `factories`) et `plan` (mot de passe `plan`).
 Le script ne s'exécute qu'à l'initialisation du volume.
 
+`PGDATA` est fixé à `/var/lib/postgresql/data`. Les images Postgres 18 et suivantes refusent de démarrer quand un volume est
+monté sur ce chemin et que `PGDATA` a sa valeur par défaut (`/var/lib/postgresql/<version>/docker`). Avec cette valeur
+explicite, le même `compose.yaml` démarre en 16 comme en 18.
+
 ## Tester
 
 ```bash
