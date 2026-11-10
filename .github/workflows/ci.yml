@@ -1,0 +1,22 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  compose:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Valider compose.yaml
+        run: docker compose config --quiet
+      - name: Démarrer la stack et attendre le healthcheck
+        run: docker compose up --detach --wait --wait-timeout 90
+      - name: Vérifier les bases et leurs rôles
+        run: scripts/check-databases.sh
+      - name: Journaux Postgres en cas d'échec
+        if: failure()
+        run: docker compose logs postgres
+      - name: Arrêter la stack
+        if: always()
+        run: docker compose down --volumes
