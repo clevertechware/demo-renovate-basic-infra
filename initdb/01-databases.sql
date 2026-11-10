@@ -1,0 +1,5 @@
+CREATE ROLE factories LOGIN PASSWORD 'factories';
+CREATE DATABASE factories OWNER factories;
+
+CREATE ROLE plan LOGIN PASSWORD 'plan';
+CREATE DATABASE plan OWNER plan;
