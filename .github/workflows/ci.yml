@@ -9,7 +9,7 @@ jobs:
   compose:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Valider compose.yaml
         run: docker compose config --quiet
       - name: Démarrer la stack et attendre le healthcheck
